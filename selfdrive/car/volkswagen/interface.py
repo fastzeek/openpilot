@@ -53,7 +53,7 @@ class CarInterface(CarInterfaceBase):
     # Determine installed network location: take a manually forced setting if
     # present, otherwise assume camera for C2/BP and gateway for white/grey Panda.
     # TODO: autodetect C2/BP gateway-side installation based on convenience/powertrain on CAN1
-	ret.networkLocation = NWL.fwdCamera
+    ret.networkLocation = NWL.fwdCamera
 
     # Determine transmission type by CAN message(s) present on the bus
     if 0xAD in fingerprint[0]:
