@@ -49,6 +49,7 @@ terms_version: bytes = b"2"
 
 dirty: bool = True
 comma_remote: bool = False
+fastzeek_remote: bool = False
 tested_branch: bool = False
 origin = get_git_remote()
 branch = get_git_full_branchname()
@@ -56,7 +57,8 @@ branch = get_git_full_branchname()
 if (origin is not None) and (branch is not None):
   try:
     comma_remote = origin.startswith('git@github.com:commaai') or origin.startswith('https://github.com/commaai')
-    tested_branch = get_git_branch() in ['devel', 'release2-staging', 'dashcam-staging', 'release2', 'dashcam']
+    fastzeek_remote = origin.startswith('git@github.com:fastzeek') or origin.startswith('https://github.com/fastzeek')
+    tested_branch = get_git_branch() in ['devel', 'release2-staging', 'dashcam-staging', 'release2', 'dashcam', 'master-ci']
 
     dirty = False
 
