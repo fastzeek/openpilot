@@ -14,11 +14,11 @@ def create_mqb_steering_control(packer, bus, apply_steer, idx, lkas_enabled):
 def create_mqb_hud_control(packer, bus, hca_enabled, steering_pressed, hud_alert, left_lane_visible, right_lane_visible,
                            ldw_lane_warning_left, ldw_lane_warning_right, ldw_side_dlc_tlc, ldw_dlc, ldw_tlc):
   if hca_enabled:
-    left_lane_hud = 3 if left_lane_visible else 1
-    right_lane_hud = 3 if right_lane_visible else 1
-  else:
     left_lane_hud = 2 if left_lane_visible else 1
     right_lane_hud = 2 if right_lane_visible else 1
+  else:
+    left_lane_hud = 1
+    right_lane_hud = 1
 
   values = {
     "LDW_Status_LED_gelb": 1 if hca_enabled and steering_pressed else 0,
