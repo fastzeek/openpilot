@@ -435,7 +435,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
       "Car Detected in Blindspot",
       "Monitor Other Vehicles",
       AlertStatus.normal, AlertSize.mid,
-      Priority.LOW, VisualAlert.steerRequired, AudibleAlert.none, .0, .1, .1),
+      Priority.LOW, VisualAlert.steerRequired, AudibleAlert.chimeWarning2, .0, .1, .1),
   },
 
   EventName.laneChange: {
@@ -469,7 +469,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   },
 
   EventName.buttonEnable: {
-    ET.ENABLE: EngagementAlert(AudibleAlert.chimeEngage),
+    ET.ENABLE: EngagementAlert(AudibleAlert.none),
   },
 
   EventName.pcmDisable: {
@@ -477,7 +477,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   },
 
   EventName.buttonCancel: {
-    ET.USER_DISABLE: EngagementAlert(AudibleAlert.chimeDisengage),
+    ET.USER_DISABLE: EngagementAlert(AudibleAlert.none),
   },
 
   EventName.brakeHold: {
