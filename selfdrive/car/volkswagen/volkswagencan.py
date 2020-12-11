@@ -11,9 +11,9 @@ def create_mqb_steering_control(packer, bus, apply_steer, idx, lkas_enabled):
   }
   return packer.make_can_msg("HCA_01", bus, values, idx)
 
-def create_mqb_hud_control(packer, bus, hca_enabled, steering_pressed, hud_alert, left_lane_visible, right_lane_visible,
+def create_mqb_hud_control(packer, bus, hca_enabled, steering_pressed, hud_alert, hud_green, left_lane_visible, right_lane_visible,
                            ldw_lane_warning_left, ldw_lane_warning_right, ldw_side_dlc_tlc, ldw_dlc, ldw_tlc):
-  if hca_enabled and hud_alert == MQB_LDW_MESSAGES["none"]:
+  if hca_enabled and hud_green:
     left_lane_hud = 2 if left_lane_visible else 1
     right_lane_hud = 2 if right_lane_visible else 1
   elif hca_enabled:
