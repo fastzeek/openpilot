@@ -16,7 +16,7 @@ def create_mqb_hud_control(packer, bus, hca_enabled, steering_pressed, hud_alert
   if hca_enabled and hud_alert == MQB_LDW_MESSAGES["none"]:
     left_lane_hud = 2 if left_lane_visible else 1
     right_lane_hud = 2 if right_lane_visible else 1
-  elif hca_enabled and hud_alert == MQB_LDW_MESSAGES["laneAssistTakeOverSilent"]:
+  elif hca_enabled and hud_alert != MQB_LDW_MESSAGES["none"]:
     left_lane_hud = 3
     right_lane_hud = 3
   else:
