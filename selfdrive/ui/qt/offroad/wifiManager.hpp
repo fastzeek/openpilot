@@ -15,6 +15,7 @@ enum class ConnectedType{
 };
 
 typedef QMap<QString, QMap<QString, QVariant>> Connection;
+typedef QVector<QMap<QString, QVariant>> IpConfig;
 
 struct Network {
   QString path;
@@ -27,16 +28,27 @@ struct Network {
 class WifiManager : public QWidget {
   Q_OBJECT
 public:
-  explicit WifiManager();
+  explicit WifiManager(QWidget* parent);
 
-  bool has_adapter;
   void request_scan();
   QVector<Network> seen_networks;
+  QString ipv4_address;
 
   void refreshNetworks();
   void connect(Network ssid);
   void connect(Network ssid, QString password);
   void connect(Network ssid, QString username, QString password);
+  void disconnect();
+
+  // Tethering functions
+  void enableTethering();
+  void disableTethering();
+  bool tetheringEnabled();
+
+  bool activate_tethering_connection();
+  void addTetheringConnection();
+  bool activate_wifi_connection(QString ssid);
+  void changeTetheringPassword(QString newPassword);
 
 private:
   QVector<QByteArray> seen_ssids;
@@ -44,8 +56,11 @@ private:
   QDBusConnection bus = QDBusConnection::systemBus();
   unsigned int raw_adapter_state;//Connection status https://developer.gnome.org/NetworkManager/1.26/nm-dbus-types.html#NMDeviceState
   QString connecting_to_network;
+  QString tethering_ssid;
+  QString tetheringPassword = "swagswagcommma";
 
   QString get_adapter();
+  QString get_ipv4_address();
   QList<Network> get_networks();
   void connect(QByteArray ssid, QString username, QString password, SecurityType security_type);
   QString get_active_ap();
@@ -56,10 +71,12 @@ private:
   QByteArray get_property(QString network_path, QString property);
   unsigned int get_ap_strength(QString network_path);
   SecurityType getSecurityType(QString ssid);
+  QVector<QDBusObjectPath> list_connections();
 
 private slots:
   void change(unsigned int new_state, unsigned int previous_state, unsigned int change_reason);
 signals:
   void wrongPassword(QString ssid);
+  void successfulConnection(QString ssid);
   void refresh();
 };
