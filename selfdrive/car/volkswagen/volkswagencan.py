@@ -15,14 +15,17 @@ def create_mqb_steering_control(packer, bus, apply_steer, idx, lkas_enabled):
   }
   return packer.make_can_msg("HCA_01", bus, values, idx)
 
-def create_mqb_hud_control(packer, bus, hca_enabled, steering_pressed, hud_alert, leftLaneVisible, rightLaneVisible):
+def create_mqb_hud_control(packer, bus, hca_enabled, steering_pressed, hud_alert, hud_green, leftLaneVisible, rightLaneVisible):
 
-  if hca_enabled:
-    leftlanehud = 3 if leftLaneVisible else 1
-    rightlanehud = 3 if rightLaneVisible else 1
-  else:
+  if hca_enabled and hud_green:
     leftlanehud = 2 if leftLaneVisible else 1
     rightlanehud = 2 if rightLaneVisible else 1
+  elif hca_enabled:
+    leftlanehud = 3
+    rightlanehud = 3
+  else:
+    leftlanehud = 1
+    rightlanehud = 1
 
   values = {
     "LDW_Unknown": 2,  # FIXME: possible speed or attention relationship

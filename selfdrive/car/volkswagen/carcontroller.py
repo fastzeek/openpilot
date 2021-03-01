@@ -114,11 +114,13 @@ class CarController():
 
       if visual_alert == car.CarControl.HUDControl.VisualAlert.steerRequired:
         hud_alert = MQB_LDW_MESSAGES["laneAssistTakeOverSilent"]
+        hud_green = False
       else:
         hud_alert = MQB_LDW_MESSAGES["none"]
+        hud_green = True
 
       can_sends.append(volkswagencan.create_mqb_hud_control(self.packer_pt, CANBUS.pt, hcaEnabled,
-                                                            CS.out.steeringPressed, hud_alert, leftLaneVisible,
+                                                            CS.out.steeringPressed, hud_alert, hud_green, leftLaneVisible,
                                                             rightLaneVisible))
 
     #--------------------------------------------------------------------------
